@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Projeto 01 - Calculadora</title>
 </head>
+
 <body>
 
     <div class="main">
@@ -15,12 +17,13 @@
             <form>
 
                 <div class="display">
-                    <input type="text" name="display"/>
+                    <input type="text" name="display" id="display" />
                 </div>
 
                 <div>
                     <input type="button" onclick="display.value = '' " value="AC" class="operator">
-                    <input type="button" onclick="display.value = display.value.toString().slice(0, -1)" value="DE" class="operator">
+                    <input type="button" onclick="display.value = display.value.toString().slice(0, -1)" value="DE"
+                        class="operator">
                     <input type="button" onclick="display.value += '.' " value="." class="operator">
                     <input type="button" onclick="display.value += '/' " value="/" class="operator">
                 </div>
@@ -49,13 +52,35 @@
                 <div>
                     <input type="button" onclick="display.value += '00' " value="00">
                     <input type="button" onclick="display.value += '0' " value="0">
-                    <input type="button" onclick="display.value = eval(display.value)" value="=" class="operator equal">
+                    <input id="equal" type="button" value="=" onclick="display.value = eval(display.value)"
+                        class="operator equal">
                 </div>
-
-
             </form>
         </div>
     </div>
-    
+
+    <script>
+
+        let getedResult = false;
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('input[type=button]');
+
+        buttons.forEach((myButton) => {
+            myButton.addEventListener('click', () => {
+
+                if (myButton.value == '=') {
+                    getedResult = true;
+                }
+
+                if (myButton.value != '=' && getedResult == true && display.value != '') {
+                    display.value = myButton.value;
+                    getedResult = false;
+                }
+            });
+        })
+
+    </script>
+
 </body>
+
 </html>
